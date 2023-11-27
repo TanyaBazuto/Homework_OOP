@@ -14,10 +14,6 @@ class Student:
             sum_grade += sum(grade_student)
             return sum_grade / len(grade_student)
 
-    # def middle_grade(self):
-    #     self.mid_grade = sum(sum(self.grades.values(), [])) / len(sum(self.grades.values(), []))
-    #     return self.mid_grade
-
     def rate_hw(self, lecturer, course, grade):
         if (isinstance(lecturer, Lecturer) and course in self.courses_in_progress
                 and course in lecturer.courses_attached):
@@ -58,7 +54,6 @@ class Lecturer(Mentor):
     def __str__(self):
         return (f'Имя: {self.name}\nФамилия: {self.surname}\n'
                 f'Средняя оценка за лекции:  {self.medium_grade()}')
-
 
 class Reviewer(Mentor):
 
