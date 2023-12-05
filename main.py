@@ -24,6 +24,10 @@ class Student:
         else:
             return 'Ошибка'
 
+    def __lt__(self, other_student):
+        if isinstance(other_student, Student):
+            return self.medium_grade_student() < other_student.medium_grade_student()
+
     def __str__(self):
         return (
             f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: '
@@ -51,9 +55,14 @@ class Lecturer(Mentor):
             sum_grade += sum(grade_lecturer)
             return sum_grade / len(grade_lecturer)
 
+    def __lt__(self, other_lecturer):
+        if isinstance(other_lecturer, Lecturer):
+            return self.medium_grade() < other_lecturer.medium_grade()
+
     def __str__(self):
         return (f'Имя: {self.name}\nФамилия: {self.surname}\n'
                 f'Средняя оценка за лекции:  {self.medium_grade()}')
+
 
 class Reviewer(Mentor):
 
@@ -104,3 +113,37 @@ print(lecturer_2)
 print("___________\n")
 print(f'Средняя оценка студентов: {(student_1.medium_grade_student() + student_2.medium_grade_student()) / 2}')
 print(f'Средняя оценка лекторов: {(lecturer_1.medium_grade() + lecturer_2.medium_grade()) / 2}')
+print("___________\n")
+print(student_2.__lt__(student_1))
+print(lecturer_1.__lt__(lecturer_2))
+print("___________\n")
+
+student_list = [student_1, student_2]
+
+
+def medium_grade_student(student_list, course):
+    sum_grade = 0
+    count_grade = 0
+    for student in student_list:
+        if course in student.grades:
+            sum_grade += sum(student.grades[course])
+            count_grade += len(student.grades[course])
+    return sum_grade / count_grade
+
+
+print(medium_grade_student(student_list, 'Python'))
+
+lecturer_list = [lecturer_1, lecturer_2]
+
+
+def medium_grade_lecturer(lecturer_list, course):
+    sum_grade = 0
+    count_grade = 0
+    for lecturer in lecturer_list:
+        if course in lecturer.grades:
+            sum_grade += sum(lecturer.grades[course])
+            count_grade += len(lecturer.grades[course])
+    return sum_grade / count_grade
+
+
+print(medium_grade_lecturer(lecturer_list, 'Design'))
